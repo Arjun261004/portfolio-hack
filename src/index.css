@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Michroma&family=Orbitron:wght@400;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-neon-green: #00ff41;
+  --color-neon-blue: #08f7fe;
+  --color-dark-bg: #050505;
+  --font-mono: "Fira Code", monospace;
+  --font-display: "Michroma", "Orbitron", sans-serif;
+
+  /* Responsive Spacing & Scaling */
+  --container-padding: clamp(1rem, 5vw, 2rem);
+  --section-spacing: clamp(2rem, 10vh, 5rem);
+  --fluid-type-base: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+  --fluid-type-h1: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+  --fluid-type-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  --fluid-type-h3: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+
+
+  --animate-blink: blink 1s step-end infinite;
+  --animate-scanline: scanline 2s linear infinite;
+  --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+  }
+
+  @keyframes crt-flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 1; }
+    10% { opacity: 0.98; }
+    15% { opacity: 1; }
+    97% { opacity: 1; }
+    100% { opacity: 0.97; }
+  }
+
+  @keyframes subtle-glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.05); }
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-dark-bg);
+  color: var(--color-neon-green);
+  font-family: var(--font-mono);
+  font-size: var(--fluid-type-base);
+  overflow-x: hidden;
+  /* Subtle CRT flicker for immersion */
+  animation: crt-flicker 4s infinite;
+  width: 100%;
+}
+
+
+/* Custom scrollbar — hacker green on black */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 65, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 65, 0.6);
+}
+
+/* Smooth text rendering for neon glow */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection colors */
+::selection {
+  background-color: rgba(0, 255, 65, 0.3);
+  color: #fff;
+}
+
+/* Lenis Recommended Styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Global Glitch Overrides */
+.is-glitched {
+  --color-neon-green: #ff0000 !important;
+  --color-cyber-green: #ff0000 !important;
+  color: #ff0000 !important;
+}
+
+.is-glitched * {
+  border-color: rgba(255, 0, 0, 0.4) !important;
+  color: #ff0000 !important;
+}
+
+/* Target specific Tailwind classes used in the project */
+.is-glitched .bg-cyber-green,
+.is-glitched .bg-neon-green,
+.is-glitched .bg-green-400,
+.is-glitched [class*="bg-[#00ff41]"] {
+  background-color: #ff0000 !important;
+}
+
+/* Force shadow/glow to red */
+.is-glitched * {
+  box-shadow: none !important;
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5) !important;
+}
+
+.is-glitched .drop-shadow-neon {
+  filter: drop-shadow(0 0 10px #ff0000) !important;
+}
+/* Global transition smoothing for interactive elements */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Ensure images and certain containers don't inherit global transition if it breaks things */
+img, .no-transition {
+  transition: none !important;
+}
+
+/* Custom cursor support */
+html, body {
+  cursor: none !important;
+}
+
+button, a, [role="button"] {
+  cursor: none !important;
+}
